@@ -22,10 +22,6 @@ from scipy.stats import norm, poisson
 import time
 from functools import wraps
 import pyarrow
-
-def sigmoid(x):
-    return 1 / (1 + np.exp(-x))
-
 import joblib
 from joblib import Parallel, delayed
 from tqdm import tqdm
