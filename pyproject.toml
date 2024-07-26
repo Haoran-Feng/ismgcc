@@ -1,0 +1,42 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ismgcc"
+version = "0.1"
+authors = [
+    {name="Haoran Feng", email="hrfeng@pmo.ac.cn" },
+]
+description = "Finding velocity coherent structures in molecular ISM using Gaussian decomposition and Graph theory"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+dependencies = [
+    "numpy",
+    "scipy",
+    "pandas",
+    "astropy",
+    "networkx",
+    "matplotlib",
+    "scikit-learn",
+    "scikit-image",
+    "regions",
+    "tqdm",
+    "pyarrow",
+    "spectral-cube"
+]
+
+[project.urls]
+Homepage = "https://github.com/Haoran-Feng/ismgcc"
+Issues = "https://github.com/Haoran-Feng/ismgcc/issues"
+
+
+
+
+    
