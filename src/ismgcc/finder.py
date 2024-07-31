@@ -74,11 +74,11 @@ class DecomposedPPVStructureFinder:
     def _load_default_params(self):
         self.params = {
             "r" : 3,
-            "bandwidth_coef": 1.0, 
+            "bandwidth_coef": 0.5, 
             "spatial_distance_threshold": 1.5,
-            "snr_th0": 3,
+            "snr_th0": 0,
             "snr_th1": 3,
-            "decision_boundary": 0.8,
+            "decision_boundary": 0.5,
             "community_resolution": 0.01,
             "minimal_number_of_pixels": 16,
         }
