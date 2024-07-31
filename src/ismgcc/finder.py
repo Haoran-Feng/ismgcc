@@ -77,7 +77,7 @@ class DecomposedPPVStructureFinder:
             "bandwidth_coef": 0.5, 
             "spatial_distance_threshold": 1.5,
             "snr_th0": 0,
-            "snr_th1": 3,
+            "snr_th1": 5,
             "decision_boundary": 0.5,
             "community_resolution": 0.01,
             "minimal_number_of_pixels": 16,
@@ -234,6 +234,17 @@ class DecomposedPPVStructureFinder:
 
         df = self.format_output_table(outdf, "serial_id", self.params["minimal_number_of_pixels"])
         return df
+
+    def get_output_suffix(self):
+        """Return a string that contains values of all parameters
+        """
+        keys = sorted(list(self.params.keys()))
+        kv_paris = []
+        for k in keys:
+            value = self.params[k]
+            s = f"{k}={value}"
+            kv_paris.append(s)
+        return "-".join(kv_paris)
 
     @log_start_and_end
     @_save_or_load_cache_file(["r", "bandwidth_coef"], "vcluster_table", ".arrow")
