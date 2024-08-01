@@ -690,7 +690,14 @@ class PostProcess:
         n_pix_min = self.params["minimal_number_of_pixels"],
         filtered_df = df.query("pix_count >= @n_pix_min")
 
+        path_out = Path(output_dir)
         sids = filtered_df[self.cluster_col].unique()
+        if len(sids) == 0:
+            output = path_out / (output_prefix +  "-NO-VALID-STRUCTS.txt")
+            with open(output, "w") as f:
+                f.write(f"No valid structures with Npix >= {n_pix_min}")
+            return 
+            
         results = []
         for sid in tqdm(sids):
             r = self._post_process_one_structure(sid)
@@ -706,7 +713,6 @@ class PostProcess:
         all_pix_wise_df = add_Tpeak_vpeak(all_pix_wise_df, cube)
         all_pix_wise_df_before_vlo_hi = add_Tpeak_vpeak(all_pix_wise_df_before_vlo_hi, cube)
 
-        path_out = Path(output_dir)
         output = path_out / (output_prefix +  "-pixel-boundaries.reg")
         boundaries.write(output, format="ds9", overwrite=True)
         output = path_out / (output_prefix +  "-pixel-boundaries-wcs.reg")
