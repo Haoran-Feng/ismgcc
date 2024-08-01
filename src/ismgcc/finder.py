@@ -610,6 +610,10 @@ def add_Tpeak_vpeak(pixdf, cube):
     vhi = pixdf["vhi"].values * u.km / u.s
     zlo = np.array(np.round(cube.wcs.spectral.world_to_pixel(vlo)), int)
     zhi = np.array(np.round(cube.wcs.spectral.world_to_pixel(vhi)), int)
+    n_channels = len(vaxis)
+    zlo[zlo < 0] = 0
+    zhi[zhi >= n_channels] = n_channels - 1
+
     T_peaks = []
     v_peaks = []
     z_peaks = []
