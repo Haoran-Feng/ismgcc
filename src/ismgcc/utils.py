@@ -1,6 +1,7 @@
 from tqdm import tqdm
 import pandas as pd
 import numpy as np
+from astropy import units as u
 
 def get_gauss_profiles(vaxis, amp, vlsr, vel_disp):
     return amp * np.exp(-((vaxis - vlsr) / vel_disp) ** 2 / 2)
@@ -95,3 +96,30 @@ def get_map_2d_from_pix_table(table, wcs2d, shape_out, value_col, unit, default_
     arr2d = np.zeros(shape_out, dtype=values.dtype) * default_value
     arr2d[y, x] = values
     return Projection(arr2d, unit=unit, wcs=wcs2d)
+
+
+def get_recorvered_cube(rawcube, vcdf, recovred_value_threshold=-1.0):
+    vaxis = rawcube.spectral_axis.to(u.km / u.s).value
+    spec_df = get_synthetic_spectra_of_single_pixels(vcdf, vaxis)
+    shape_out = rawcube.shape
+    values = np.zeros(shape_out)
+    for index, row in spec_df.iterrows():
+        x_pos, y_pos = index
+        spec = row.values
+        values[:, y_pos, x_pos] = spec
+
+    rcube = SpectralCube(values, wcs=rawcube.wcs)
+    idx = (values >= recovred_value_threshold)
+    mask2d = idx.any(axis=0)
+    spec_mask = idx.any(axis=(1, 2))
+    z, *_ = np.where(spec_mask)
+    zlo, zhi = np.min(z), np.max(z)
+    return rcube.subcube(zlo=zlo, zhi=zhi).with_mask(mask2d).minimal_subcube(spatial_only=True)
+
+def get_rawcube_cutout_as_recovred_cube(rawcube, recovred_cube, recovered_threshold=-1.0):
+    (xlo, xhi), (ylo, yhi) = recovred_cube.world_extrema
+    vlo, vhi = recovred_cube.spectral_extrema
+    scube = rawcube.subcube(xlo=xlo, xhi=xhi, ylo=ylo, yhi=yhi, zlo=vlo, zhi=vhi)
+    mask3d = recovred_cube.with_fill_value(0.).filled_data[:] >= recovered_threshold
+    return scube.with_mask(mask3d)
+

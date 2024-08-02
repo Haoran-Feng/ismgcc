@@ -6,3 +6,5 @@ ISMGCC (InterStellar Medium Gaussian Component Clustering): Finding gas structur
 - [ ] Add a preprocess to handle different column names
 - [ ] Add a tool to run the parameter grid
 - [ ] Script that 
+- [ ] The current version only support velocity in units of km/s, fix it.
+- [ ] Write a jupyter notebook tutorial

@@ -34,4 +34,4 @@ file = "./demo-data/GL14.fits.gz"
 u.add_enabled_units(u.def_unit(['K (T_MB)'], represents=u.K)) 
 cube = SpectralCube.read(file)
 pp = PostProcess(cube, outdf, "serial_id")
-pp.process(output_prefix, "./results/")
+pp.process(output_prefix, "./demo-results/")
