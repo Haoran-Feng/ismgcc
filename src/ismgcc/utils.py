@@ -122,4 +122,3 @@ def get_rawcube_cutout_as_recovred_cube(rawcube, recovred_cube, recovered_thresh
     scube = rawcube.subcube(xlo=xlo, xhi=xhi, ylo=ylo, yhi=yhi, zlo=vlo, zhi=vhi)
     mask3d = recovred_cube.with_fill_value(0.).filled_data[:] >= recovered_threshold
     return scube.with_mask(mask3d)
-
