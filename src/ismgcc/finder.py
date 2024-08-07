@@ -452,10 +452,17 @@ class DecomposedPPVStructureFinder:
         id_map
         outdf["shuffle_id"] = outdf[cluster_id_col].replace(id_map)
 
-        first_cols = ["GLON", "GLAT", "VLSR", "index", cluster_id_col, "shuffle_id"]
         cols = outdf.columns.to_list()
+        if "GLON" in cols and "GLAT" in cols:
+            first_cols = ["GLON", "GLAT", "VLSR", "index", cluster_id_col, "shuffle_id"]
+        elif "RA" in cols and "DEC" in cols:
+            first_cols = ["RA", "DEC", "VLSR", "index", cluster_id_col, "shuffle_id"]
+        else:
+            return outdf
+        
         for c in first_cols:
             cols.remove(c)
+
         outdf = outdf[first_cols + cols]
 
         return outdf
