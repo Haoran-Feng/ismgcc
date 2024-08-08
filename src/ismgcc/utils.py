@@ -2,6 +2,28 @@ from tqdm import tqdm
 import pandas as pd
 import numpy as np
 from astropy import units as u
+import joblib
+from joblib import Parallel, delayed
+from tqdm import tqdm
+import contextlib
+# https://stackoverflow.com/questions/24983493/tracking-progress-of-joblib-parallel-execution
+@contextlib.contextmanager
+def tqdm_joblib(tqdm_object):
+    """Context manager to patch joblib to report into tqdm progress bar given as argument"""
+    class TqdmBatchCompletionCallback(joblib.parallel.BatchCompletionCallBack):
+        def __call__(self, *args, **kwargs):
+            tqdm_object.update(n=self.batch_size)
+            return super().__call__(*args, **kwargs)
+
+    old_batch_callback = joblib.parallel.BatchCompletionCallBack
+    joblib.parallel.BatchCompletionCallBack = TqdmBatchCompletionCallback
+    try:
+        yield tqdm_object
+    finally:
+        joblib.parallel.BatchCompletionCallBack = old_batch_callback
+        tqdm_object.close()
+
+
 
 def get_gauss_profiles(vaxis, amp, vlsr, vel_disp):
     return amp * np.exp(-((vaxis - vlsr) / vel_disp) ** 2 / 2)
