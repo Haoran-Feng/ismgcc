@@ -132,12 +132,18 @@ def add_Tpeak_vpeak(pixdf, cube):
             z_peaks.append(-1)
         else:
             spec = cube.filled_data[zlo[i]: zhi[i]+1, y[i], x[i] ]
-            T_peak = spec.max().value
-            idx_peak = np.argmax(spec)
-            v_peak = vaxis[zlo[i]: zhi[i] + 1][idx_peak]
-            T_peaks.append(T_peak)
-            v_peaks.append(v_peak)
-            z_peaks.append(zlo[i] + idx_peak)
+            if len(spec) > 0:
+                T_peak = spec.max().value 
+                idx_peak = np.argmax(spec)
+                v_peak = vaxis[zlo[i]: zhi[i] + 1][idx_peak]
+
+                T_peaks.append(T_peak)
+                v_peaks.append(v_peak)
+                z_peaks.append(zlo[i] + idx_peak)
+            else:
+                T_peaks.append(np.nan)
+                v_peaks.append(np.nan * u.km / u.s)
+                z_peaks.append(-1)
 
     pixdf["T_peak"] = T_peaks
     pixdf["v_peak"] = u.Quantity(v_peaks).to(u.km / u.s).value
