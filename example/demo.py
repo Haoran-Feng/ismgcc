@@ -20,7 +20,7 @@ finder = DecomposedPPVStructureFinder(df, params={
     "snr_th0": snrth0, 
     "snr_th1": snrth1, 
     "decision_boundary": db, 
-    "community_resolution": resolution
+    "community_resolution": resolution,
     },
     n_jobs=n_process
     )
