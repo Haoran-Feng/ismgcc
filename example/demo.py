@@ -21,17 +21,18 @@ finder = DecomposedPPVStructureFinder(df, params={
     "snr_th1": snrth1, 
     "decision_boundary": db, 
     "community_resolution": resolution,
+    "spatial_distance_threshold": 3.0,
     },
     n_jobs=n_process
     )
 output_suffix = finder.get_output_suffix()
-# outdf = finder.find_structures()
+outdf = finder.find_structures()
 output = f"./demo-results/GL14-{output_suffix}.csv"
-# outdf.to_csv(output, index=False)
+outdf.to_csv(output, index=False)
 
-outdf = pd.read_csv(output)
-file = "./demo-data/GL14.fits.gz"
-u.add_enabled_units(u.def_unit(['K (T_MB)'], represents=u.K)) 
-cube = SpectralCube.read(file)
-pp = PostProcess(cube, outdf, "serial_id", 'serial_id1', n_jobs=4)
-pp.process("GL14-" + output_suffix, "./demo-results/")
+# outdf = pd.read_csv(output)
+# file = "./demo-data/GL14.fits.gz"
+# u.add_enabled_units(u.def_unit(['K (T_MB)'], represents=u.K)) 
+# cube = SpectralCube.read(file)
+# pp = PostProcess(cube, outdf, "serial_id", 'serial_id1', n_jobs=4)
+# pp.process("GL14-" + output_suffix, "./demo-results/")

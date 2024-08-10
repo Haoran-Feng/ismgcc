@@ -362,7 +362,7 @@ class DecomposedPPVStructureFinder:
         return g
 
     @log_start_and_end
-    @_save_or_load_cache_file(["r", "bandwidth_coef"], "n_connected", ".pickle")
+    @_save_or_load_cache_file(["r", "bandwidth_coef", "spatial_distance_threshold"], "n_connected", ".pickle")
     def _prepare_vc_n_connect_table(self):
         n_connected = {}       # record the number of times that two nodes are clustered into the same vel cluster
         n_share_apertures = {} # record the number of times that two nodes are circled by the same aperture
