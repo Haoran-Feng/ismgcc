@@ -23,7 +23,7 @@ dependencies = [
     "pandas",
     "astropy",
     "joblib",
-    "networkx",
+    "networkx>=3.2",
     "matplotlib",
     "scikit-learn",
     "scikit-image",
