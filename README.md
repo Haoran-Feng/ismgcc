@@ -1,7 +1,7 @@
 # ismgcc
 ISMGCC (InterStellar Medium Gaussian Component Clustering): Finding gas structures in molecular ISM using Gaussian decomposition and Graph theory
 
-This repository contains the Python code that implements the method described in [arXiv link].
+This repository contains the Python code that implements the method described in [arXiv:2409.01181](https://arxiv.org/abs/2409.01181).
 It is designed to find molecular gas structures from PPV data cubes, especially in the direction with crowded emissions, e.g., the inner galaxy.
 
 The document is currently under construction.
