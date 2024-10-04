@@ -131,7 +131,9 @@ def add_Tpeak_vpeak(pixdf, cube):
             v_peaks.append(np.nan * u.km / u.s)
             z_peaks.append(-1)
         else:
-            spec = cube.filled_data[zlo[i]: zhi[i]+1, y[i], x[i] ]
+            z1, z2 = zlo[i], zhi[i]
+            z1, z2 = min(z1, z2), max(z1, z2)
+            spec = cube.filled_data[z1: z2+1, y[i], x[i] ]
             if len(spec) > 0:
                 T_peak = spec.max().value 
                 idx_peak = np.argmax(spec)
