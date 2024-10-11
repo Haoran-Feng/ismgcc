@@ -13,4 +13,4 @@ Q: Why does the code stop running when I killed a previous run with `Ctrl + C`?
 
 A: To prevent the cache files from being manipulated by multiple processes,  `*.lock` files will be created and removed by the code. 
 But when you have mannually killed the program, the `*.lock` file won't be released properly. 
-**The solution is deleteing all `*.lock` files in the `./.cache/` directory. **
+<strong>The solution is deleteing all `.lock` files in the `./.cache/` directory. </strong>
