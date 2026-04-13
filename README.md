@@ -4,8 +4,7 @@ ISMGCC (InterStellar Medium Gaussian Component Clustering): Finding gas structur
 This repository contains the Python code that implements the method described in [ISMGCC: Finding Gas Structures in Molecular Interstellar Medium Using Gaussian Decomposition and Graph Theory](https://doi.org/10.1088/1674-4527/ad849b) ( [arXiv:2409.01181](https://arxiv.org/abs/2409.01181) ).
 It is designed to find molecular gas structures from PPV data cubes, especially in the direction with crowded emissions, e.g., the inner galaxy.
 
-The document is currently under construction.
-Before its completion, please refer to the [tutorial](https://github.com/Haoran-Feng/ismgcc/blob/main/example/tutorial.ipynb). 
+Please refer to the [tutorial](https://github.com/Haoran-Feng/ismgcc/blob/main/example/tutorial.ipynb) for code examples. 
 
 ## Parameter setting
 
